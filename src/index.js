@@ -9,12 +9,19 @@ function newBoard(x, y) {
   // const board = Array(y).fill(column);
 
   //this works
-  const board = Array(y).fill(null).map(() => []);
-  return board;
+  // const board = Array(y).fill(null).map(() => []);
+  // return board;
+
+  const connect = {
+    board: Array(y).fill(null).map(() => []),
+    rows: x
+  };
+  return connect;
   // TODO: draw newBoard
 }
 
-function addToken(player, column, board) {
+function addToken(player, column, boardObj) {
+  const board = boardObj.board
   if (board[column-1].length > 6) {
     return 'Fail. This column is full'
   } else {
@@ -24,11 +31,13 @@ function addToken(player, column, board) {
   }
 }
 
+function winner(boardObj) {
+}
 // returns cell n of given column
 function cell(n, column) {
   return column[n];
 }
 
-module.exports = { newBoard, addToken };
+module.exports = { newBoard, addToken, winner };
 
 // 1. a column is just an array.
