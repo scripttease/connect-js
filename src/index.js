@@ -65,6 +65,14 @@ function winner(boardObj) {
         retval = ('Player ' + cell + ' wins!');
         console.log('retval1 = ' +retval);
         break;
+      case diagonalUpRightWin(boardObj, indexCol, indexCell):
+        // case true:
+        console.log('given column: ' + indexCol);
+        console.log('given cell: ' + indexCell);
+        console.log('given cell value: ' + cell);
+        retval = ('Player ' + cell + ' wins!');
+        console.log('retval1 = ' +retval);
+        break;
       default:       
         console.log('no match');
         break
@@ -126,6 +134,26 @@ function neighbourRightWin(boardObj, indexCol, indexCell) {
   }
 }
 
+function diagonalUpRightWin(boardObj, indexCol, indexCell) {
+  if(indexCol + 3 > boardObj.columns - 1){
+    return(false);
+  } else {
+    const u0 = boardObj.board[indexCol][indexCell];
+    const u1 = boardObj.board[indexCol + 1 ][indexCell + 1];
+    const u2 = boardObj.board[indexCol + 2 ][indexCell + 2];
+    const u3 = boardObj.board[indexCol + 3 ][indexCell + 3];
+    if(u1 == u0 && u2 == u0 && u3 == u0) {
+      console.log('u0: ' + u0);
+      console.log('u1: ' + u1);
+      console.log('u2: ' + u2);
+      console.log('u3: ' + u3);
+      return u0;
+    } else {
+      return false;
+    }
+  }
+}
+
 function neighbourDiagonalUpRight(boardObj, indexCol, indexCell) {
   return boardObj.board[indexCol + 1][indexCell + 1];
 }
@@ -144,6 +172,4 @@ function cell(n, column) {
   return column[n];
 }
 
-module.exports = { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, neighbourRightWin };
-
-// 1. a column is just an array.
+module.exports = { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, neighbourRightWin, diagonalUpRightWin };
