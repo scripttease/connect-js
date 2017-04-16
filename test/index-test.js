@@ -1,7 +1,7 @@
 require('../src/index.js');
 
 const expect = require('chai').expect;
-const { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, neighbourRightWin, diagonalUpRightWin } = require('../src');
+const { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, neighbourRightWin, diagonalUpRightWin, diagnonalDownRight } = require('../src');
 
 describe('index.js', () => {
 
@@ -359,6 +359,43 @@ describe('index.js', () => {
       const indexCol2 = 1;
       const indexCell2 = 1;
       expect(diagonalUpRightWin(boardObj, indexCol2, indexCell2)).to.equal(false);
+    });
+  });
+
+  describe('diagnonalDownRight', () => {
+    it('returns winning token if 4 in horizontal row from given cell', () => {
+      const boardObj = newBoard(6, 7);
+      addToken('o', 1, boardObj);
+      addToken('o', 1, boardObj);
+      addToken('x', 1, boardObj);
+      addToken('x', 1, boardObj);
+      addToken('x', 2, boardObj);
+      addToken('x', 2, boardObj);
+      addToken('x', 2, boardObj);
+      addToken('o', 2, boardObj);
+      addToken('o', 3, boardObj);
+      addToken('x', 3, boardObj);
+      addToken('x', 3, boardObj);
+      addToken('o', 3, boardObj);
+      addToken('x', 4, boardObj);
+      addToken('o', 4, boardObj);
+      addToken('o', 4, boardObj);
+      addToken('x', 4, boardObj);
+      const indexCol = 0;
+      const indexCell = 3;
+      expect(boardObj.board).to.deep.equal([
+        ['o', 'o', 'x', 'x'],
+        ['x', 'x', 'x', 'o'],
+        ['o', 'x', 'x', 'o'],
+        ['x', 'o', 'o', 'x'],
+        [],
+        [],
+        [],
+      ]);
+      expect(diagnonalDownRight(boardObj, indexCol, indexCell)).to.equal('x');
+      const indexCol2 = 1;
+      const indexCell2 = 3;
+      expect(diagnonalDownRight(boardObj, indexCol2, indexCell2)).to.equal(false);
     });
   });
 });

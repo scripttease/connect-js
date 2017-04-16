@@ -154,6 +154,26 @@ function diagonalUpRightWin(boardObj, indexCol, indexCell) {
   }
 }
 
+function diagnonalDownRight(boardObj, indexCol, indexCell) {
+  if(indexCol + 3 > boardObj.columns - 1){
+    return(false);
+  } else {
+    const u0 = boardObj.board[indexCol][indexCell];
+    const u1 = boardObj.board[indexCol + 1 ][indexCell - 1];
+    const u2 = boardObj.board[indexCol + 2 ][indexCell - 2];
+    const u3 = boardObj.board[indexCol + 3 ][indexCell - 3];
+    if(u1 == u0 && u2 == u0 && u3 == u0) {
+      console.log('u0: ' + u0);
+      console.log('u1: ' + u1);
+      console.log('u2: ' + u2);
+      console.log('u3: ' + u3);
+      return u0;
+    } else {
+      return false;
+    }
+  }
+}
+
 function neighbourDiagonalUpRight(boardObj, indexCol, indexCell) {
   return boardObj.board[indexCol + 1][indexCell + 1];
 }
@@ -172,4 +192,4 @@ function cell(n, column) {
   return column[n];
 }
 
-module.exports = { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, neighbourRightWin, diagonalUpRightWin };
+module.exports = { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, neighbourRightWin, diagonalUpRightWin, diagnonalDownRight };
