@@ -23,8 +23,12 @@ function newBoard(x, y) {
 
 function addToken(player, column, boardObj) {
   const board = boardObj.board
-  if (board[column-1].length > 6) {
-    return 'Fail. This column is full'
+  if (column > boardObj.columns -1) {
+    return 'Fail. This column does not exist';
+  } else if (column < 1) {
+    return 'Fail. This column does not exist';
+  } else if (board[column-1].length > boardObj.rows) {
+    return 'Fail. This column is full';
   } else {
     board[column-1].push(player);
     // I'm mutating board with push so I dont need to re-return it

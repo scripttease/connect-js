@@ -50,8 +50,22 @@ describe('index.js', () => {
       expect(addToken('x', 3, boardObj)).to.equal('Fail. This column is full');
     });
 
+    it('doesnt add token if column doesnt exist', () => {
+      const boardObj = newBoard(6, 7);
+      addToken('x', 3, boardObj);
+      addToken('x', 3, boardObj);
+      addToken('x', 3, boardObj);
+      expect(addToken('o', 9, boardObj)).to.equal('Fail. This column does not exist')
+      expect(addToken('o', -1, boardObj)).to.equal('Fail. This column does not exist')
+    });
+  
     xit('doesnt add token if a player has won', () => {
-
+      const boardObj = newBoard(6, 7);
+      addToken('x', 3, boardObj);
+      addToken('x', 3, boardObj);
+      addToken('x', 3, boardObj);
+      addToken('x', 3, boardObj);
+      expect(addToken('o', 3, boardObj)).to.equal('Fail')
     });
   });
 
