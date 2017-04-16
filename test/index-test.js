@@ -1,7 +1,7 @@
 require('../src/index.js');
 
 const expect = require('chai').expect;
-const { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, } = require('../src');
+const { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, neighbourRightWin } = require('../src');
 
 describe('index.js', () => {
 
@@ -56,13 +56,71 @@ describe('index.js', () => {
   });
 
   describe('winner', () => {
-    it('returns winner if board has 4 consecutive tokens', () => {
+    it('returns winner if board has 4 consecutive vertical tokens', () => {
       const boardObj = newBoard(6, 7);
       addToken('x', 3, boardObj);
       addToken('x', 3, boardObj);
       addToken('x', 3, boardObj);
       addToken('x', 3, boardObj);
       expect(winner(boardObj)).to.equal('Player x wins!')
+    });
+
+    it('returns winner if board has 4 consecutive horizontal tokens', () => {
+      const boardObj = newBoard(6, 7);
+      addToken('x', 1, boardObj);
+      addToken('x', 2, boardObj);
+      addToken('x', 3, boardObj);
+      addToken('x', 4, boardObj);
+      expect(winner(boardObj)).to.equal('Player x wins!')
+    });
+
+    it('returns nothing if board has no winner (vertical)', () => {
+      const boardObj = newBoard(6, 7);
+      addToken('x', 3, boardObj);
+      addToken('x', 3, boardObj);
+      addToken('x', 3, boardObj);
+      addToken('o', 3, boardObj);
+      expect(boardObj.board).to.deep.equal([
+        [],
+        [],
+        ['x', 'x', 'x', 'o'],
+        [],
+        [],
+        [],
+        [],
+      ]);
+      expect(winner(boardObj)).to.equal(undefined)
+    });
+
+    it('returns winner on complex board', () => {
+      const boardObj = newBoard(6, 7);
+      addToken('x', 1, boardObj);
+      addToken('x', 1, boardObj);
+      addToken('x', 2, boardObj);
+      addToken('x', 2, boardObj);
+      addToken('x', 3, boardObj);
+      addToken('o', 4, boardObj);
+      addToken('x', 4, boardObj);
+      addToken('o', 4, boardObj);
+      addToken('o', 4, boardObj);
+      addToken('o', 4, boardObj);
+      addToken('x', 4, boardObj);
+      addToken('x', 4, boardObj);
+      addToken('x', 5, boardObj);
+      addToken('o', 5, boardObj);
+      addToken('o', 5, boardObj);
+      addToken('o', 5, boardObj);
+      addToken('o', 5, boardObj);
+      expect(boardObj.board).to.deep.equal([
+        ['x', 'x'],
+        ['x', 'x'],
+        ['x'],
+        ['o', 'x', 'o', 'o', 'o', 'x', 'x'],
+        ['x', 'o', 'o', 'o', 'o'],
+        [],
+        [],
+      ]);
+      expect(winner(boardObj)).to.equal('Player o wins!')
     });
   });
 
@@ -185,7 +243,7 @@ describe('index.js', () => {
   });
 
   describe('neighbourUpWin', () => {
-    it('returns true if 4 in vertical row from given cell', () => {
+    it('returns winning token if 4 in vertical row from given cell', () => {
       const boardObj = newBoard(6, 7);
       addToken('x', 1, boardObj);
       addToken('x', 1, boardObj);
@@ -205,10 +263,39 @@ describe('index.js', () => {
         [],
         [],
       ]);
-      expect(neighbourUpWin(boardObj, indexCol, indexCell)).to.equal(true);
+      expect(neighbourUpWin(boardObj, indexCol, indexCell)).to.equal('x');
       const indexCol2 = 1;
       const indexCell2 = 1;
       expect(neighbourUpWin(boardObj, indexCol2, indexCell2)).to.equal(false);
+    });
+  });
+
+  describe('neighbourRightWin', () => {
+    it('returns winning token if 4 in horizontal row from given cell', () => {
+      const boardObj = newBoard(6, 7);
+      addToken('x', 1, boardObj);
+      addToken('x', 1, boardObj);
+      addToken('x', 2, boardObj);
+      addToken('x', 2, boardObj);
+      addToken('x', 2, boardObj);
+      addToken('o', 2, boardObj);
+      addToken('x', 3, boardObj);
+      addToken('x', 4, boardObj);
+      const indexCol = 0;
+      const indexCell = 0;
+      expect(boardObj.board).to.deep.equal([
+        ['x', 'x'],
+        ['x', 'x', 'x', 'o'],
+        ['x'],
+        ['x'],
+        [],
+        [],
+        [],
+      ]);
+      expect(neighbourRightWin(boardObj, indexCol, indexCell)).to.equal('x');
+      const indexCol2 = 1;
+      const indexCell2 = 1;
+      expect(neighbourRightWin(boardObj, indexCol2, indexCell2)).to.equal(false);
     });
   });
 });

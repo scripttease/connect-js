@@ -14,7 +14,8 @@ function newBoard(x, y) {
 
   const connect = {
     board: Array(y).fill(null).map(() => []),
-    rows: x
+    rows: x,
+    columns: y
   };
   return connect;
   // TODO: draw newBoard
@@ -31,55 +32,90 @@ function addToken(player, column, boardObj) {
   }
 }
 
-function winner(boardObj) {
   // 1. get symbol at point x starting bottom left (or assign var ie cell)
+  // 2. check if symbol at point up(u) same
+  // (if so follow pattern in new method)
+  // 3. check if symbol at up diagonal right udr same
+  // (new method)
+  // 4. check right
+  // (new method)
+  // 5. check down dr (unless row is zero)
+  // (new methd)
+  // 6. now check next cell in column array (so up)
+function winner(boardObj) {
+  var retval
   boardObj.board.map((column, indexCol) => column.map((cell, indexCell) => {
-    switch(neighbourUpWin(boardObj, indexCol, indexCell)){
-      case true:
+    // TODO: Try extracting the switch so I can lose the var
+    switch(cell){
+      case neighbourUpWin(boardObj, indexCol, indexCell):
+        // case true:
         console.log('given column: ' + indexCol);
         console.log('given cell: ' + indexCell);
         console.log('given cell value: ' + cell);
         console.log('neighbourup: ' + neighbourUp(boardObj, indexCol, indexCell));
-        // console.log('Player ' + cell + ' wins!');
         retval = ('Player ' + cell + ' wins!');
+        console.log('retval1 = ' +retval);
+        break;
+      case neighbourRightWin(boardObj, indexCol, indexCell):
+        // case true:
+        console.log('given column: ' + indexCol);
+        console.log('given cell: ' + indexCell);
+        console.log('given cell value: ' + cell);
+        console.log('neighbour right: ' + neighbourRight(boardObj, indexCol, indexCell));
+        retval = ('Player ' + cell + ' wins!');
+        console.log('retval1 = ' +retval);
         break;
       default:       
         console.log('no match');
-        return('no match');
+        break
     };
-    console.log(retval);
+    console.log('retval2 = ' +retval);
     return(retval);
-    // TODO: can i use break here?
   }));
+  console.log('retval3 = ' +retval);
   return(retval);
-    // 2. check if symbol at point up(u) same
-    // (if so follow pattern in new method)
-    // 3. check if symbol at up diagonal right udr same
-    // (new method)
-    // 4. check right
-    // (new method)
-    // 5. check down dr (unless row is zero)
-    // (new methd)
-    // 6. now check next cell in column array (so up)
+}
 
-    // playerSymbolAtX = boardObj.board.map((col) => col.map((cell) =>  ) )
+function neighbourUp(boardObj, indexCol, indexCell) {
+  return boardObj.board[indexCol][indexCell + 1];
+}
+
+function neighbourUpWin(boardObj, indexCol, indexCell) {
+  const u0 = boardObj.board[indexCol][indexCell];
+  const u1 = boardObj.board[indexCol][indexCell + 1];
+  const u2 = boardObj.board[indexCol][indexCell + 2];
+  const u3 = boardObj.board[indexCol][indexCell + 3];
+  if(u1 == u0 && u2 == u0 && u3 == u0) {
+    console.log('u0: ' + u0);
+    console.log('u1: ' + u1);
+    console.log('u2: ' + u2);
+    console.log('u3: ' + u3);
+    return u0;
+  } else {
+    // console.log('u0: ' + u0);
+    // console.log('u1: ' + u1);
+    // console.log('u2: ' + u2);
+    // console.log('u3: ' + u3);
+    console.log('up from cell: ' + indexCol + ',' + indexCell + ' value: ' + u0 + ' is: ' + u1 + u2 + u3);
+    return false;
   }
+}
 
-  function neighbourUp(boardObj, indexCol, indexCell) {
-    return boardObj.board[indexCol][indexCell + 1];
-  }
-
-  function neighbourUpWin(boardObj, indexCol, indexCell) {
+// TODO: get rid of nested if
+function neighbourRightWin(boardObj, indexCol, indexCell) {
+  if(indexCol + 3 > boardObj.columns - 1){
+    return(false);
+  } else {
     const u0 = boardObj.board[indexCol][indexCell];
-    const u1 = boardObj.board[indexCol][indexCell + 1];
-    const u2 = boardObj.board[indexCol][indexCell + 2];
-    const u3 = boardObj.board[indexCol][indexCell + 3];
+    const u1 = boardObj.board[indexCol + 1 ][indexCell];
+    const u2 = boardObj.board[indexCol + 2 ][indexCell];
+    const u3 = boardObj.board[indexCol + 3 ][indexCell];
     if(u1 == u0 && u2 == u0 && u3 == u0) {
-      // console.log('u0: ' + u0);
-      // console.log('u1: ' + u1);
-      // console.log('u2: ' + u2);
-      // console.log('u3: ' + u3);
-      return true;
+      console.log('u0: ' + u0);
+      console.log('u1: ' + u1);
+      console.log('u2: ' + u2);
+      console.log('u3: ' + u3);
+      return u0;
     } else {
       // console.log('u0: ' + u0);
       // console.log('u1: ' + u1);
@@ -88,27 +124,26 @@ function winner(boardObj) {
       return false;
     }
   }
+}
 
-    // return   }
+function neighbourDiagonalUpRight(boardObj, indexCol, indexCell) {
+  return boardObj.board[indexCol + 1][indexCell + 1];
+}
 
-  function neighbourDiagonalUpRight(boardObj, indexCol, indexCell) {
-    return boardObj.board[indexCol + 1][indexCell + 1];
-  }
+function neighbourRight(boardObj, indexCol, indexCell) {
+  return boardObj.board[indexCol + 1][indexCell];
+}
 
-  function neighbourRight(boardObj, indexCol, indexCell) {
-    return boardObj.board[indexCol + 1][indexCell];
-  }
+function neighbourDiagonalDownRight(boardObj, indexCol, indexCell) {
+  // console.log('neighbour DDR: ' + boardObj.board[indexCol + 1][indexCell - 1]);
+  return boardObj.board[indexCol + 1][indexCell - 1];
+}
 
-  function neighbourDiagonalDownRight(boardObj, indexCol, indexCell) {
-    // console.log('neighbour DDR: ' + boardObj.board[indexCol + 1][indexCell - 1]);
-    return boardObj.board[indexCol + 1][indexCell - 1];
-  }
+// returns cell n of given column
+function cell(n, column) {
+  return column[n];
+}
 
-  // returns cell n of given column
-  function cell(n, column) {
-    return column[n];
-  }
+module.exports = { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, neighbourRightWin };
 
-  module.exports = { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin };
-
-  // 1. a column is just an array.
+// 1. a column is just an array.
