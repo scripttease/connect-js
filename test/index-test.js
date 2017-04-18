@@ -23,7 +23,6 @@ describe('index.js', () => {
   describe('addToken', () => {
     it('adds token to given column of given board', () => {
       const boardObj = newBoard(6, 7);
-      // const board = game.board;
       addToken('x', 3, boardObj);
       addToken('x', 3, boardObj);
       addToken('x', 3, boardObj);
