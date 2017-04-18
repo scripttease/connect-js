@@ -9,8 +9,11 @@ const { drawBoard } = require('../src/connect');
 describe('connect.js', () => {
 
   describe('drawBoard', () => {
-    xit('draws a new board in stdout', () => {
-        '|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n'
+    it('draws a new board in stdout', () => {
+      const boardObj = newBoard(6, 7);
+      expect(drawBoard(boardObj)).to.deep.equal(
+        '|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n|_|_|_|_|_|_|_|\n'
+      );
     });
     
     it('draws current board in stdout', () => { 

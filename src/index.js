@@ -11,7 +11,9 @@ function newBoard(x, y) {
 
 function addToken(player, column, boardObj) {
   const board = boardObj.board
-  if (column > boardObj.columns -1) {
+  if (winner(boardObj) != undefined) {
+    return 'Fail. This game is over';
+  }  else if (column > boardObj.columns -1) {
     return 'Fail. This column does not exist';
   } else if (column < 1) {
     return 'Fail. This column does not exist';

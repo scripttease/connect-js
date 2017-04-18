@@ -6,6 +6,9 @@ function drawBoard(boardObj) {
   const num_rows = boardObj.rows
   boardObj.board.map((col) => {
     const emptyCells = num_rows - col.length
+    // console.log('col.length: ' + col.length);
+    // console.log('num_rows: ' + num_rows);
+    // console.log('emptycells: ' + emptyCells);
     if(col.length < num_rows) {
       [...Array(emptyCells).keys()].map((emptyCell) => {
         col.unshift('_')
@@ -23,8 +26,7 @@ function drawBoard(boardObj) {
     display.push('\n');
     // console.log(display);
   });
-  // console.log(display.join('|'));
-
+  console.log(display.join('|'));
   return(display.join('|'));
 }
 

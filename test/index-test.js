@@ -58,13 +58,13 @@ describe('index.js', () => {
       expect(addToken('o', -1, boardObj)).to.equal('Fail. This column does not exist')
     });
   
-    xit('doesnt add token if a player has won', () => {
+    it('doesnt add token if a player has won', () => {
       const boardObj = newBoard(6, 7);
       addToken('x', 3, boardObj);
       addToken('x', 3, boardObj);
       addToken('x', 3, boardObj);
       addToken('x', 3, boardObj);
-      expect(addToken('o', 3, boardObj)).to.equal('Fail')
+      expect(addToken('o', 3, boardObj)).to.equal('Fail. This game is over');
     });
   });
 
@@ -292,13 +292,12 @@ describe('index.js', () => {
       addToken('x', 2, boardObj);
       addToken('x', 2, boardObj);
       addToken('x', 2, boardObj);
-      addToken('x', 3, boardObj);
       const indexCol = 1;
       const indexCell = 0;
       expect(boardObj.board).to.deep.equal([
         ['x', 'x'],
         ['x', 'x', 'x', 'x'],
-        ['x'],
+        [],
         [],
         [],
         [],
