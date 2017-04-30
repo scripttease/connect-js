@@ -1,7 +1,17 @@
-require('../src/index.js');
-
 const expect = require('chai').expect;
-const { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, neighbourRightWin, diagonalUpRightWin, diagnonalDownRight } = require('../src');
+const {
+  newBoard,
+  addToken,
+  winner,
+  neighbourUp,
+  neighbourDiagonalUpRight,
+  neighbourRight,
+  neighbourDiagonalDownRight,
+  neighbourUpWin,
+  neighbourRightWin,
+  diagonalUpRightWin,
+  diagnonalDownRight,
+} = require('../src/index');
 
 describe('index.js', () => {
 
@@ -57,7 +67,7 @@ describe('index.js', () => {
       expect(addToken('o', 9, boardObj)).to.equal('Fail. This column does not exist')
       expect(addToken('o', -1, boardObj)).to.equal('Fail. This column does not exist')
     });
-  
+
     it('doesnt add token if a player has won', () => {
       const boardObj = newBoard(6, 7);
       addToken('x', 3, boardObj);

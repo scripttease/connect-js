@@ -13,7 +13,7 @@ function addToken(player, column, boardObj) {
   const board = boardObj.board
   if (winner(boardObj) != undefined) {
     return 'Fail. This game is over';
-  }  else if (column > boardObj.columns -1) {
+  } else if (column > boardObj.columns -1) {
     return 'Fail. This column does not exist';
   } else if (column < 1) {
     return 'Fail. This column does not exist';
@@ -26,9 +26,9 @@ function addToken(player, column, boardObj) {
 
 function winner(boardObj) {
   var retval
-  boardObj.board.map((column, indexCol) => column.map((cell, indexCell) => {
+  boardObj.board.forEach((column, indexCol) => column.forEach((cell, indexCell) => {
     // TODO: Try extracting the switch so I can lose the var
-    switch(cell){
+    switch(cell) {
       case neighbourUpWin(boardObj, indexCol, indexCell):
         retval = ('Player ' + cell + ' wins!');
         break;
@@ -38,12 +38,11 @@ function winner(boardObj) {
       case diagonalUpRightWin(boardObj, indexCol, indexCell):
         retval = ('Player ' + cell + ' wins!');
         break;
-      default:       
+      default:
         break
     };
-    return(retval);
   }));
-  return(retval);
+  return retval;
 }
 
 // unused?
@@ -69,9 +68,9 @@ function neighbourRightWin(boardObj, indexCol, indexCell) {
     return(false);
   } else {
     const u0 = boardObj.board[indexCol][indexCell];
-    const u1 = boardObj.board[indexCol + 1 ][indexCell];
-    const u2 = boardObj.board[indexCol + 2 ][indexCell];
-    const u3 = boardObj.board[indexCol + 3 ][indexCell];
+    const u1 = boardObj.board[indexCol + 1][indexCell];
+    const u2 = boardObj.board[indexCol + 2][indexCell];
+    const u3 = boardObj.board[indexCol + 3][indexCell];
     if(u1 == u0 && u2 == u0 && u3 == u0) {
       return u0;
     } else {
@@ -82,12 +81,12 @@ function neighbourRightWin(boardObj, indexCol, indexCell) {
 
 function diagonalUpRightWin(boardObj, indexCol, indexCell) {
   if(indexCol + 3 > boardObj.columns - 1){
-    return(false);
+    return false;
   } else {
     const u0 = boardObj.board[indexCol][indexCell];
-    const u1 = boardObj.board[indexCol + 1 ][indexCell + 1];
-    const u2 = boardObj.board[indexCol + 2 ][indexCell + 2];
-    const u3 = boardObj.board[indexCol + 3 ][indexCell + 3];
+    const u1 = boardObj.board[indexCol + 1][indexCell + 1];
+    const u2 = boardObj.board[indexCol + 2][indexCell + 2];
+    const u3 = boardObj.board[indexCol + 3][indexCell + 3];
     if(u1 == u0 && u2 == u0 && u3 == u0) {
       return u0;
     } else {
@@ -101,9 +100,9 @@ function diagnonalDownRight(boardObj, indexCol, indexCell) {
     return(false);
   } else {
     const u0 = boardObj.board[indexCol][indexCell];
-    const u1 = boardObj.board[indexCol + 1 ][indexCell - 1];
-    const u2 = boardObj.board[indexCol + 2 ][indexCell - 2];
-    const u3 = boardObj.board[indexCol + 3 ][indexCell - 3];
+    const u1 = boardObj.board[indexCol + 1][indexCell - 1];
+    const u2 = boardObj.board[indexCol + 2][indexCell - 2];
+    const u3 = boardObj.board[indexCol + 3][indexCell - 3];
     if(u1 == u0 && u2 == u0 && u3 == u0) {
       return u0;
     } else {
@@ -127,10 +126,16 @@ function neighbourDiagonalDownRight(boardObj, indexCol, indexCell) {
   return boardObj.board[indexCol + 1][indexCell - 1];
 }
 
-// unused?
-// returns cell n of given column
-function cell(n, column) {
-  return column[n];
-}
-
-module.exports = { newBoard, addToken, winner, neighbourUp, neighbourDiagonalUpRight, neighbourRight, neighbourDiagonalDownRight, neighbourUpWin, neighbourRightWin, diagonalUpRightWin, diagnonalDownRight };
+module.exports = {
+  newBoard,
+  addToken,
+  winner,
+  neighbourUp,
+  neighbourDiagonalUpRight,
+  neighbourRight,
+  neighbourDiagonalDownRight,
+  neighbourUpWin,
+  neighbourRightWin,
+  diagonalUpRightWin,
+  diagnonalDownRight,
+};
