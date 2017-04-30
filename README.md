@@ -12,3 +12,9 @@ yarn
 ```
 yarn test
 ```
+
+## How to play in the terminal
+
+```
+yarn run start-cli
+```

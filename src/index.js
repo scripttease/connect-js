@@ -1,5 +1,5 @@
-//this is the bit that holds the state
-function newBoard(x, y) {
+// This is the object that holds the state
+function newBoard(x = 7, y = 6) {
 
   const connect = {
     board: Array(y).fill(null).map(() => []),

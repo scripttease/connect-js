@@ -37,12 +37,12 @@ describe('connect.js', () => {
       const boardObj = newBoard(6, 7);
       addToken('x', 3, boardObj);
       addToken('x', 3, boardObj);
-      addToken('x', 3, boardObj);
+      addToken('o', 3, boardObj);
       deepFreeze(boardObj);
       expect(boardObj.board).to.deep.equal([
         [],
         [],
-        ['x', 'x', 'x'],
+        ['x', 'x', 'o'],
         [],
         [],
         [],
@@ -53,7 +53,7 @@ describe('connect.js', () => {
         `|_|_|_|_|_|_|_|
 |_|_|_|_|_|_|_|
 |_|_|_|_|_|_|_|
-|_|_|x|_|_|_|_|
+|_|_|o|_|_|_|_|
 |_|_|x|_|_|_|_|
 |_|_|x|_|_|_|_|
 `

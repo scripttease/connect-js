@@ -12,14 +12,14 @@ function drawBoard(boardObj) {
     const newCol = [...col];
     if (col.length < numRows) {
       range(emptyCells).map((emptyCell) => {
-        newCol.unshift('_')
+        newCol.push('_')
       });
     }
     return newCol;
   });
 
   const display = [''];
-  range(numRows).forEach((row_num) => {
+  range(numRows).reverse().forEach((row_num) => {
     newBoard.forEach((col) => {
       // console.log('col: ' + col);
       // console.log('row_num: ' + row_num);

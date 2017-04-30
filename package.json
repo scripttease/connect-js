@@ -7,7 +7,9 @@
   "author": "scripttease and lpil",
   "license": "MIT",
   "scripts": {
-    "test": "mocha --watch"
+    "start-cli": "node ./bin/start-cli.js",
+    "test": "mocha --watch",
+    "test-once": "mocha"
   },
   "devDependencies": {
     "chai": "^3.5.0",
